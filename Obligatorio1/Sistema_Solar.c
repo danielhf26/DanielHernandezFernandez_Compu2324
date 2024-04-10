@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 #include "Funciones_Sistema_Solar.h"
 
 
 
 
 int main(){
+    //Medir tiempo
+    clock_t comienzo, final;
+    comienzo=clock();
     int i, j;
     int d=2;
     int n=8;
@@ -20,10 +24,13 @@ int main(){
     double V[n];
     double E[n];
     double m[n];
-    double vueltas[2];
-    vueltas[0]=0;
-    vueltas[1]=0;
-    double Perio=0;
+    double vueltas[n][2];
+    for(i=0;i<n;i++){
+        for(j=0;j<d;j++){
+            vueltas[i][j]=0;
+        }
+    }
+    double Perio[n];
     double Dias;
    
     FILE* fichero_int;
@@ -44,7 +51,9 @@ int main(){
     double *mp=m;
     double h=0.01;
     double t=0;
-    double Tf=50;
+    //Años que debe durar la simulación
+    double Tf=200;
+    Tf=rees_tiempo(Tf);
     rees_masa(mp, n);
     rees_pos(rp, n, d);
     rees_veloc(vp, n, d);
@@ -117,7 +126,7 @@ int main(){
             E[i]=V[i]+T[i];
             
         }
-        //fprintf(fichero2, "%f \t %f \t %f \t %f   \n",E[1], V[1], T[1], t);
+        fprintf(fichero2, "%f \t %f \t %f \t %f   \n",E[3], V[3], T[3], t);
 
 
 
@@ -125,21 +134,23 @@ int main(){
        
         //Calculo del periodo
         //Requerimos de otro vector auxiliar que guarde las posiciones del momento anterior
-        if(r_anterior[3]<=0 && r[3][1]>=0){
+        // if(r_anterior[3]<=0 && r[3][1]>=0){
             
-            Dias=t-Perio;
-            Perio=t;
-            Dias=des_rees_tiempo(Dias);
-            fprintf(fichero2, "%f    \n",Dias);    
-        }
+        //     Dias=t-Perio;
+        //     Perio=t;
+        //     Dias=des_rees_tiempo(Dias);
+        //     fprintf(fichero2, "%f    \n",Dias);    
+        // }
         
         //Otra manera de calcular el periodo 
         //Contamos el numero de vueltas que da
-        if(r_anterior[3]<=0 && r[3][1]>=0 && t>0){
-            vueltas[0]=vueltas[0]+1;
-            vueltas[1]=t;
+        for(i=1;i<n;i++){
+            if(r_anterior[i]<=0 && r[i][1]>=0 && t>0){
+                vueltas[i][0]=vueltas[i][0]+1;
+                vueltas[i][1]=t;
+        
+            }
         }
-
 
         //ORBITAS GEOESTACIONARIAS
         geocentro(rp, r_geop, n, d, 3);
@@ -155,12 +166,23 @@ int main(){
 
     //Se divide el iempo que tard entre le numeor de vueltas que el planeta da
     //De esta forma obtenemos también el periodo
-    Perio=vueltas[1]/vueltas[0];
-    Perio=des_rees_tiempo(Perio);
+    for(i=0;i<n;i++){
+        Perio[i]=vueltas[i][1]/vueltas[i][0];
+        Perio[i]=des_rees_tiempo(Perio[i]);
+    }
+    
+    
 
-    fclose(fichero);
+    fclose(fichero); 
     fclose(fichero2);
     fclose(fichero_int);
+
+    final=clock();
+    
+    double tiempo=(double)(final-comienzo)/CLOCKS_PER_SEC;
+
+    printf("Tiempo transcurrido desde el comienzo hasta el fin del algoritmo utilizado: %lf ", tiempo);
+    
 
     
 

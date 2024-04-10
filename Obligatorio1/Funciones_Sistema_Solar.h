@@ -319,6 +319,18 @@ void rees_veloc(double* v, int n, int d){
 }
 
 
+double rees_tiempo(double t){
+    double G=6.67e-11;
+    double Ms=1.99e30;
+    double c=1.496e11;
+    double trees;
+    trees=t*365;
+    trees=trees*(3600*24);
+    trees=sqrt((G*Ms)/(c*c*c))*trees;
+    return trees;
+
+}
+
 //Funion que reescala el tiempo
 //Se le pasa el valor del tiempo que se desea reescalar
 //Devuelve el valor del tiempo en días
