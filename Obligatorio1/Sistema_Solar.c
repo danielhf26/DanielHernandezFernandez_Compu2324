@@ -13,7 +13,7 @@ int main(){
     comienzo=clock();
     int i, j;
     int d=2;
-    int n=8;
+    int n=10;
     double a[n][d];
     double r[n][d];
     double r_anterior[n];
@@ -52,7 +52,7 @@ int main(){
     double h=0.01;
     double t=0;
     //Años que debe durar la simulación
-    double Tf=200;
+    double Tf=247;
     Tf=rees_tiempo(Tf);
     rees_masa(mp, n);
     rees_pos(rp, n, d);
@@ -170,6 +170,8 @@ int main(){
         Perio[i]=vueltas[i][1]/vueltas[i][0];
         Perio[i]=des_rees_tiempo(Perio[i]);
     }
+
+    printf("Periodo= %lf \n", Perio[9]);
     
     
 
@@ -193,15 +195,3 @@ int main(){
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
