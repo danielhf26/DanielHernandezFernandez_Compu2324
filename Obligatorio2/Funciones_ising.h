@@ -1,4 +1,3 @@
-
 //Función delta energía
 double delta_energia(int* s, int N){
     double E;
@@ -11,10 +10,9 @@ double delta_energia(int* s, int N){
 }
 
 //Funcion aleatoria
-int aleatory_gsl1(int n){
+int aleatory_gsl1(int n, int semilla){
     double x;
     extern gsl_rng*tau;
-    int semilla=time(NULL);
     tau=gsl_rng_alloc(gsl_rng_taus);
     gsl_rng_set(tau, semilla);
     x=gsl_rng_uniform_int(tau, n);
@@ -24,10 +22,9 @@ int aleatory_gsl1(int n){
 
     return x;
 }
-int aleatory_gsl2(){
+int aleatory_gsl2(semilla){
     double x;
     extern gsl_rng*tau;
-    int semilla=time(NULL);
     tau=gsl_rng_alloc(gsl_rng_taus);
     gsl_rng_set(tau, semilla);
     x=gsl_rng_uniform(tau, n);
