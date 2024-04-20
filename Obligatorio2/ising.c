@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "gsl_rng.h"
 #include "Funciones_ising.h"
 #include <stdlib.h>
 #include <time.h>
@@ -20,6 +21,7 @@ int main(){
     for(i=1;i<N+1;i++){
         for(j=1;j<N+1;j++){
             s[i][j]=rand() % 2;
+            //s[i][j]=aleatory_gsl1(2)
             if(s[i][j]==0){
                 s[i][j]=-1;
             }
@@ -43,6 +45,9 @@ int main(){
             //Elegimos el punto incial de la matriz
             n=rand() % N+1;
             m=rand() % N+1;
+            //n=aleatory_gsl1(N+1);
+            //m=aleatory_gsl2(N+2);
+
             int* sp=s[0];
             //*sp=*(sp+n+m*(N+2));
 
@@ -60,6 +65,7 @@ int main(){
             //Generamos un numero aleatorio 
             xi=rand();
             xi=xi/RAND_MAX;
+            //xi=aleatory_gsl2();
             if(xi<p){
                 s[n][m]=-s[n][m];
             }
