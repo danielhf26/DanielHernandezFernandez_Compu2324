@@ -319,6 +319,9 @@ void rees_veloc(double* v, int n, int d){
 }
 
 
+//Funcion que reescala el tiempo
+//Se le pasa el valor del tiempo en años
+//Devuelve el valor del tiempo reescalado
 double rees_tiempo(double t){
     double G=6.67e-11;
     double Ms=1.99e30;
@@ -347,8 +350,9 @@ double des_rees_tiempo(double t){
 
 
 
-//Función que ace un cambio en las posiciones al modelo geocéntrico
-
+//Función que hace un cambio en las posiciones al modelo geocéntrico
+//Se le pasa el puntero de posiciones un puntero con las posiciones geocentricas, la dimension, el numero de planetas
+//Devuelve el puntero geocentrico
 void geocentro(double *r,double *r_geo, int n , int d, int p){
     int i, j;
     for (i=0;i<n;i++){

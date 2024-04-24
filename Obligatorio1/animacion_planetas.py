@@ -48,28 +48,28 @@ import numpy as np
 # Parámetros
 # ========================================
 file_in = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Obligatorio1/Datos_planetas.txt" # Nombre del fichero de datos
-file_out = "planetas" # Nombre del fichero de salida (sin extensión)
+file_out = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Obligatorio1/planetas" # Nombre del fichero de salida (sin extensión)
 
 # Límites de los ejes X e Y
-x_min = -10
-x_max = 10
-y_min = -10
-y_max = 10
+x_min = -40
+x_max = 40
+y_min = -40
+y_max = 40
 
-interval = 50 # Tiempo entre fotogramas en milisegundos
+interval = 10 # Tiempo entre fotogramas en milisegundos
 show_trail = True # Muestra la "estela" del planeta
-trail_width = 0.5 # Ancho de la estela
+trail_width = 0.3 # Ancho de la estela
 save_to_file = False # False: muestra la animación por pantalla,
                      # True: la guarda en un fichero
 #dpi = 150 # Calidad del vídeo de salida (dots per inch)
-dpi = 10 # Calidad del vídeo de salida (dots per inch)
+dpi = 50 # Calidad del vídeo de salida (dots per inch)
 
 
 # Radio del planeta, en las mismas unidades que la posición
 # Puede ser un número (el radio de todos los planetas) o una lista con
 # el radio de cada uno
-planet_radius = 0.15 
-#planet_radius = [0.5, 0.7, 1.1]
+planet_radius = 0.2 
+#planet_radius = [ 0.1, 0.2, 0.2, 0,2, 0.2, 0.1, 0.6, 0.5, 0.5, 0.2]
 
 
 # Lectura del fichero de datos

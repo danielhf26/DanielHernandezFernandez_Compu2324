@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "gsl_rng.h"
+//#include "gsl_rng.h"
 #include "Funciones_ising.h"
 #include <stdlib.h>
 #include <time.h>
@@ -8,7 +8,8 @@
 
 int main(){
     srand(time(NULL));
-    int N=8;
+    int semilla=time(NULL);
+    int N=120;
     int i, j, k;
     int m, n;
     double E, expo, T, p, xi;
@@ -16,7 +17,7 @@ int main(){
     FILE* fichero_out;
     fichero_out=fopen("Datos_isin.txt", "w");
 
-    T=1;
+    T=5;
     int s[N+2][N+2];
     for(i=1;i<N+1;i++){
         for(j=1;j<N+1;j++){
@@ -29,7 +30,7 @@ int main(){
     }
    
    
-    Tmax=10e5;
+    Tmax=2*10e6;
     h=1;
     t=0;
     while(t<Tmax){
@@ -45,8 +46,8 @@ int main(){
             //Elegimos el punto incial de la matriz
             n=rand() % N+1;
             m=rand() % N+1;
-            //n=aleatory_gsl1(N+1);
-            //m=aleatory_gsl2(N+2);
+            //n=aleatory_gsl1(N+1, semilla);
+            //m=aleatory_gsl2(N+2, semilla);
 
             int* sp=s[0];
             //*sp=*(sp+n+m*(N+2));
@@ -65,7 +66,7 @@ int main(){
             //Generamos un numero aleatorio 
             xi=rand();
             xi=xi/RAND_MAX;
-            //xi=aleatory_gsl2();
+            //xi=aleatory_gsl2(semilla);
             if(xi<p){
                 s[n][m]=-s[n][m];
             }
