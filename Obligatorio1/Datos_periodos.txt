@@ -1,9 +1,9 @@
 Periodo= -nan(ind) 
-Periodo= 0.214953 
-Periodo= 0.611591 
-Periodo= 1.005582 
-Periodo= 1.859644 
-Periodo= 11.539040 
+Periodo= 0.215396 
+Periodo= 0.613143 
+Periodo= -nan(ind) 
+Periodo= -nan(ind) 
+Periodo= -nan(ind) 
 Periodo= -nan(ind) 
 Periodo= -nan(ind) 
 Periodo= -nan(ind) 

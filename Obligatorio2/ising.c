@@ -7,9 +7,11 @@
 
 
 int main(){
+    clock_t comienzo, final;
+    comienzo=clock();
     srand(time(NULL));
     int semilla=time(NULL);
-    int N=120;
+    int N=1;
     int i, j, k;
     int m, n;
     double E, expo, T, p, xi;
@@ -17,7 +19,8 @@ int main(){
     FILE* fichero_out;
     fichero_out=fopen("Datos_isin.txt", "w");
 
-    T=5;
+    T=1;
+    //Pone un valor de espin aleatorio en cada punto de la malla
     int s[N+2][N+2];
     for(i=1;i<N+1;i++){
         for(j=1;j<N+1;j++){
@@ -30,12 +33,14 @@ int main(){
     }
    
    
-    Tmax=2*10e6;
+    Tmax=10;
     h=1;
     t=0;
     while(t<Tmax){
         
-        for(i=1;i<N+2;i++){
+        //Nuestra matriz es dos filas y dos columnas más grande 
+        //De esta forma podemos imponer las condiciones de contorno periodicas de la siguiente forma
+        for(i=1;i<N*N;i++){
             for(k=0;k<N+1; k++){
             s[0][k]=s[N][k];
             s[k][0]=s[k][N];
@@ -79,11 +84,16 @@ int main(){
             fprintf(fichero_out, "\n");
         }
         fprintf(fichero_out, "\n");
-        t+=N*N;
+        t+=1;
         
     }
 
 fclose(fichero_out);
+final=clock();
+    
+double tiempo=(double)(final-comienzo)/CLOCKS_PER_SEC;
+
+printf("Tiempo transcurrido desde el comienzo hasta el fin del algoritmo utilizado: %lf ", tiempo);
 
 
 
