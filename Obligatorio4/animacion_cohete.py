@@ -52,10 +52,10 @@ file_out = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Co
 
 
 # Límites de los ejes X e Y
-x_min = -1
-x_max = 1
-y_min = -1 
-y_max = 1
+x_min = -1.5
+x_max = 1.5
+y_min = -2 
+y_max = 2
 
 interval = 1 # Tiempo entre fotogramas en milisegundos
 show_trail = True # Muestra la "estela" del planeta

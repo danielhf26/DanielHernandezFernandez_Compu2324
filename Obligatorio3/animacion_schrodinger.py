@@ -46,8 +46,8 @@ import io
 # Parámetros
 # ========================================
 file_in = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Obligatorio3/Datos_Schrodinger.txt" # Nombre del fichero de datos
-file_out = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Obligatorio3/N=200_nc=50_limite" # Nombre del fichero de salida (sin extensión)
-interval = 10 # Tiempo entre fotogramas en milisegundos
+file_out = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Obligatorio3/N=200_nc=50_tuneling" # Nombre del fichero de salida (sin extensión)
+interval = 50 # Tiempo entre fotogramas en milisegundos
 save_to_file = True # False: muestra la animación por pantalla,
                      # True: la guarda en un fichero
 dpi = 150 # Calidad del vídeo de salida (dots per inch)

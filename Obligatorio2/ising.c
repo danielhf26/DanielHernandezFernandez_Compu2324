@@ -11,7 +11,7 @@ int main(){
     comienzo=clock();
     srand(time(NULL));
     int semilla=time(NULL);
-    int N=1;
+    int N=120;
     int i, j, k;
     int m, n;
     double E, expo, T, p, xi;
@@ -19,7 +19,7 @@ int main(){
     FILE* fichero_out;
     fichero_out=fopen("Datos_isin.txt", "w");
 
-    T=1;
+    T=0.1;
     //Pone un valor de espin aleatorio en cada punto de la malla
     int s[N+2][N+2];
     for(i=1;i<N+1;i++){
@@ -33,7 +33,7 @@ int main(){
     }
    
    
-    Tmax=10;
+    Tmax=500;
     h=1;
     t=0;
     while(t<Tmax){

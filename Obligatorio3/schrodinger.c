@@ -23,7 +23,7 @@ int main(){
     double complex * bethap=betha;
     double * Vp=V;
 
-    int Tmax=10;
+    int Tmax=500;
     int n=0;
 
     FILE* fichero;
