@@ -52,7 +52,7 @@ file_out = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Co
 interval = 1 # Tiempo entre fotogramas en milisegundos
 save_to_file = False # False: muestra la animación por pantalla,
                      # True: la guarda en un fichero
-dpi = 150 # Calidad del vídeo de salida (dots per inch)
+dpi = 100 # Calidad del vídeo de salida (dots per inch)
 
 
 # Lectura del fichero de datos

@@ -48,7 +48,7 @@ import io
 # Parámetros
 # ========================================
 file_in = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Obligatorio2/Datos_isin.txt" # Nombre del fichero de datos
-file_out = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Obligatorio2/ising_T0.1_N120" # Nombre del fichero de salida (sin extensión)
+file_out = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Obligatorio2/ising_T5_N120" # Nombre del fichero de salida (sin extensión)
 interval = 50 # Tiempo entre fotogramas en milisegundos
 save_to_file = True # False: muestra la animación por pantalla,
                      # True: la guarda en un fichero

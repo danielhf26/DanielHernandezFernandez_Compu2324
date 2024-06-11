@@ -1,3 +1,6 @@
+
+
+
 //Función delta energía
 double energia(int* s, int N){
     double E;
@@ -104,25 +107,65 @@ double Magnetización(int*s, int N){
 double Magnetización_superior(int*s, int N){
   int i, j;
   double suma=0;
-  for(i=1;i<N/2;i++){
+  for(i=0;i<N/2;i++){
     for(j=2;j<N+2;j++){
         suma=suma+*(s+i*(N+4)+j);
     }
   }
-  suma=4*suma/(N*N);
+  suma=2*suma/(N*N);
   return suma;
 }
 
 double Magnetización_inferior(int*s, int N){
   int i, j;
   double suma=0;
-  for(i=N/2;i<N-1;i++){
+  for(i=N/2;i<N;i++){
     for(j=2;j<N+2;j++){
         suma=suma+*(s+i*(N+4)+j);
     }
   }
-  suma=4*suma/(N*N);
+  suma=2*suma/(N*N);
   return suma;
+}
+
+double densidad_positivo(int *s, int N){
+  int i, j;
+  double suma1, suma2;
+  
+  suma2=0;
+  for(j=2;j<N+2;j++){
+    suma1=0;
+    for(i=0;i<N;i++){
+      if(*(s+i*(N+4))==1){
+        suma1=suma1+1;
+      }
+      
+      
+    }
+    suma1=suma1/N;
+    suma2=suma1+suma2;
+
+  }
+
+  suma2=suma2/N;
+  return suma2;
+
+}
+
+
+//Función varianza
+//Calcula la varianza de un puntero
+double var(double *m, double media, int N){
+  int i, j;
+  double var;
+  var=0;
+
+  for(i=0;i<N;i++){
+    var=var+(*(m+i)-media)*(*(m+i)-media);
+  }
+
+  var=var/N;
+  return var;
 }
 
 

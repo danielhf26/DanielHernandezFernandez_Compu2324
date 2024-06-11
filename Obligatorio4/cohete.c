@@ -9,7 +9,7 @@ int main(){
     double y[4], k1[4], k2[4], k3[4], k4[4], a[4], pos_x[3], pos_y[3];
     double G=6.67e-11;
     double m=10;
-    double Delta, mu, r_prima, omega, t, Mt, Ml;
+    double Delta, mu, r_prima, omega, t, Mt, Ml, H_prime, r_prime;
     double dtl;
     double h, Tmax;
     int i, cont;
@@ -26,7 +26,7 @@ int main(){
 
     t=0;
     h=200;
-    Tmax=10000000;
+    Tmax=1000000;
 
     for(i=0;i<3;i++){
         pos_x[i]=0;
@@ -50,7 +50,7 @@ int main(){
 
     y[0]=6378160;
     y[1]=11100;
-    y[2]=3.14159265/4.221;
+    y[2]=3.14159265/4.15 ;
     y[3]=1.11e2;
 
     y[3]=y[3]/pow(dtl, 2);
@@ -89,6 +89,9 @@ int main(){
             y[i]=y[i]+(k1[i]+2*k2[i]+2*k3[i]+k4[i])/6;
         }
 
+        r_prime=sqrt(1+y[0]*y[0]-2*y[0]*cos(y[2]-omega*t));
+        H_prime=y[1]*y[1]/2+y[3]*y[3]/(2*y[0]*y[0])-1/y[0]-Delta*mu/r_prime;
+
         t=t+h;
 
         pos_x[2]=y[0]*cos(y[2]);
@@ -96,13 +99,14 @@ int main(){
         pos_x[1]=cos(omega*t);
         pos_y[1]=sin(omega*t);
 
-        //if(cont%5==0){
+        if(cont%5==0){
 
         for(i=0;i<3;i++){
             fprintf(fichero, "%lf, %lf \n", pos_x[i], pos_y[i]);
         }
         fprintf(fichero, "\n");
-        //}
+        }
+        
         cont=cont+1;
         
 

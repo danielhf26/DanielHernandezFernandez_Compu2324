@@ -12,12 +12,12 @@ int main(){
     
     double nc, lambda, k, k_tilde, h, s_tilde, norma;
     int N=200;
-    nc=N/4 ;
+    nc=5 ;
     double V[N], phi2[N], imag[N], real[N];
     double complex phi[N], alpha[N-1], betha[N-1], chi[N];
     k_tilde=2*pi*nc/(N);
     s_tilde=1/(4*k_tilde*k_tilde);
-    lambda=0.8;
+    lambda=1;
     double complex * phip=phi;
     double complex * alphap=alpha;
     double complex * bethap=betha;
@@ -43,12 +43,17 @@ int main(){
     //Contorno
     phi[0]=0;
     phi[N-1]=0;
+    norma=0;
     for(j=1;j<N-1;j++){
         phi[j]=cexp(I*k_tilde*j)*exp(-8*pow((4*j-N),2)/(N*N));
         phi2[j]=cabs(phi[j])*cabs(phi[j]);
         real[j]=creal(phi[j]);
         imag[j]=cimag(phi[j]);
+        norma=norma+phi2[j]/N;
         
+    }
+    for(j=1;j<N;j++){
+        phi[j]=phi[j]/sqrt(norma);
     }
      for(j=0;j<N;j++){
             fprintf(fichero, "%d, %lf, %lf \n", j, phi2[j], V[j]);
@@ -88,7 +93,7 @@ int main(){
         }
         fprintf(fichero, "\n");
 
-        fprintf(fichero_norma, "%lf \n", norma);
+        fprintf(fichero_norma, "%lf, %d \n", norma, n);
 
         n=n+1;
     }

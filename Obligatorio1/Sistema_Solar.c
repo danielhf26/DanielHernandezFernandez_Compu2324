@@ -55,7 +55,7 @@ int main(){
     double h=0.01;
     double t=0;
     //Años que debe durar la simulación
-    double Tf=1;
+    double Tf=100;
 
     //Realizamos los reescalaminetos
     Tf=rees_tiempo(Tf);

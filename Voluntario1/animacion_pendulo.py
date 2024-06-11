@@ -47,20 +47,20 @@ import numpy as np
 
 # Parámetros
 # ========================================
-file_in = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Obligatorio4/Datos_cohete.txt" # Nombre del fichero de datos
+file_in = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Voluntario1/Datos_pendulo.txt" # Nombre del fichero de datos
 file_out = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Obligatorio4/cohete2"
 
 
 # Límites de los ejes X e Y
-x_min = -1.5
-x_max = 1.5
-y_min = -2 
-y_max = 2
+x_min = -4
+x_max = 4
+y_min = -4 
+y_max = 4
 
-interval = 0.8 # Tiempo entre fotogramas en milisegundos
+interval = 20 # Tiempo entre fotogramas en milisegundos
 show_trail = True # Muestra la "estela" del planeta
 trail_width = 1 # Ancho de la estela
-save_to_file = True # False: muestra la animación por pantalla,
+save_to_file = False # False: muestra la animación por pantalla,
                      # True: la guarda en un fichero
 #dpi = 150 # Calidad del vídeo de salida (dots per inch)
 dpi = 100 # Calidad del vídeo de salida (dots per inch)
@@ -69,7 +69,7 @@ dpi = 100 # Calidad del vídeo de salida (dots per inch)
 # Radio del planeta, en las mismas unidades que la posición
 # Puede ser un número (el radio de todos los planetas) o una lista con
 # el radio de cada uno
-planet_radius = 0.01 
+planet_radius = 0.1 
 #planet_radius = [0.5, 0.7, 1.1]
 
 
