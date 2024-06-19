@@ -13,7 +13,9 @@ int main(){
     comienzo=clock();
     int i, j,k;
     k=0;
+    //dimensiones (siempre 2)
     int d=2;
+    //numero de planetas
     int n=10;
     double a[n][d];
     double r[n][d];
@@ -171,7 +173,7 @@ int main(){
 
 
 
-    //Se divide el iempo que tarda entre le numero de vueltas que el planeta da
+    //Se divide el tiempo que tarda entre le numero de vueltas que el planeta da
     //De esta forma obtenemos el periodo
     for(i=0;i<n;i++){
         Perio[i]=vueltas[i][1]/vueltas[i][0];
@@ -182,7 +184,7 @@ int main(){
             fprintf(fichero_t, "Periodo= %lf \n", Perio[i]);
     }
     
-    //Cerramos ficeros
+    //Cerramos ficheros
     fclose(fichero); 
     fclose(fichero2);
     fclose(fichero_int);

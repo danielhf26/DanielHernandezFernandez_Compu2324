@@ -1,4 +1,6 @@
 //Función delta energía
+//Se le pasa el puntero del espín que nos interesa calcular su energía junto al tamaño de la malla
+//Devuelve el valor de la diferencia de energía para ese espín
 double delta_energia(int* s, int N){
     double E;
 
@@ -11,10 +13,11 @@ double delta_energia(int* s, int N){
 }
 
 
-//Funció que calculala magnetización
+
 
 
 //Funcion aleatoria
+//Solo para joel
 //int aleatory_gsl1(int n, int semilla){
   //  double x;
   //  gsl_rng*tau;
