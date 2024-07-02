@@ -50,14 +50,13 @@ import numpy as np
 file_in = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Voluntario1/Datos_pendulo.txt" # Nombre del fichero de datos
 file_out = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Obligatorio4/cohete2"
 
-
 # Límites de los ejes X e Y
 x_min = -4
 x_max = 4
 y_min = -4 
 y_max = 4
 
-interval = 20 # Tiempo entre fotogramas en milisegundos
+interval = 5 # Tiempo entre fotogramas en milisegundos
 show_trail = True # Muestra la "estela" del planeta
 trail_width = 1 # Ancho de la estela
 save_to_file = False # False: muestra la animación por pantalla,
@@ -65,13 +64,11 @@ save_to_file = False # False: muestra la animación por pantalla,
 #dpi = 150 # Calidad del vídeo de salida (dots per inch)
 dpi = 100 # Calidad del vídeo de salida (dots per inch)
 
-
 # Radio del planeta, en las mismas unidades que la posición
 # Puede ser un número (el radio de todos los planetas) o una lista con
 # el radio de cada uno
 planet_radius = 0.1 
 #planet_radius = [0.5, 0.7, 1.1]
-
 
 # Lectura del fichero de datos
 # ========================================
@@ -106,7 +103,6 @@ for frame_data_str in data_str.split("\n\n"):
 # Lo calculamos del primer bloque
 nplanets = len(frames_data[0])
 
-
 # Creación de la animación/gráfico
 # ========================================
 # Crea los objetos figure y axis
@@ -130,13 +126,14 @@ else:
                 "de planetas")
 
 # Representa el primer fotograma
-# Pinta un punto en la posición de cada paneta y guarda el objeto asociado
+# Pinta un punto en la posición de cada planeta y guarda el objeto asociado
 # al punto en una lista
 planet_points = list()
 planet_trails = list()
+pendulum_lines = list()
+
 for planet_pos, radius in zip(frames_data[0], planet_radius):
     x, y = planet_pos
-    #planet_point, = ax.plot(x, y, "o", markersize=10)
     planet_point = Circle((x, y), radius)
     ax.add_artist(planet_point)
     planet_points.append(planet_point)
@@ -147,9 +144,18 @@ for planet_pos, radius in zip(frames_data[0], planet_radius):
                 x, y, "-", linewidth=trail_width,
                 color=planet_points[-1].get_facecolor())
         planet_trails.append(planet_trail)
- 
+
+# Inicializa las líneas del péndulo
+for i in range(nplanets - 1):
+    line, = ax.plot([], [], 'k-')
+    pendulum_lines.append(line)
+
+# Añade una línea para conectar la primera masa con el origen
+origin_line, = ax.plot([], [], 'k-')
+pendulum_lines.insert(0, origin_line)
+
 # Función que actualiza la posición de los planetas en la animación 
-def update(j_frame, frames_data, planet_points, planet_trails, show_trail):
+def update(j_frame, frames_data, planet_points, planet_trails, pendulum_lines, show_trail):
     # Actualiza la posición del correspondiente a cada planeta
     for j_planet, planet_pos in enumerate(frames_data[j_frame]):
         x, y = planet_pos
@@ -162,7 +168,17 @@ def update(j_frame, frames_data, planet_points, planet_trails, show_trail):
 
             planet_trails[j_planet].set_data(xs_new, ys_new)
 
-    return planet_points + planet_trails
+    # Actualiza las líneas del péndulo
+    for i, line in enumerate(pendulum_lines):
+        if i == 0:  # Línea que conecta con el origen
+            xdata = [0, frames_data[j_frame][0][0]]
+            ydata = [0, frames_data[j_frame][0][1]]
+        else:  # Otras líneas que conectan las masas
+            xdata = [frames_data[j_frame][i-1][0], frames_data[j_frame][i][0]]
+            ydata = [frames_data[j_frame][i-1][1], frames_data[j_frame][i][1]]
+        line.set_data(xdata, ydata)
+
+    return planet_points + planet_trails + pendulum_lines
 
 def init_anim():
     # Clear trails
@@ -170,7 +186,7 @@ def init_anim():
         for j_planet in range(nplanets):
             planet_trails[j_planet].set_data(list(), list())
 
-    return planet_points + planet_trails
+    return planet_points + planet_trails + pendulum_lines
 
 # Calcula el nº de frames
 nframes = len(frames_data)
@@ -180,7 +196,7 @@ if nframes > 1:
     # Info sobre FuncAnimation: https://matplotlib.org/stable/api/animation_api.html
     animation = FuncAnimation(
             fig, update, init_func=init_anim,
-            fargs=(frames_data, planet_points, planet_trails, show_trail),
+            fargs=(frames_data, planet_points, planet_trails, pendulum_lines, show_trail),
             frames=len(frames_data), blit=True, interval=interval)
 
     # Muestra por pantalla o guarda según parámetros
