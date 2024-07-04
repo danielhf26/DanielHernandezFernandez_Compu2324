@@ -15,15 +15,17 @@ double f_psi(double phi, double psi, double pphi, double ppsi){
 
 double f_pphi(double phi, double psi, double pphi, double ppsi, double g){
     double f;
-    double h1, h2;
+    double h1, h2, h3;
     // h1=pphi*ppsi*sin(phi-psi)/(1+sin(phi-psi)*sin(phi-psi));
     // h2=pphi*pphi+2*ppsi*ppsi-2*pphi*ppsi*cos(phi-psi);
     // h2=h2/(pow((1+sin(phi-psi)*sin(phi-psi)),2));
     // f=-2*g*sin(phi)-h1+h2*sin(2*(phi-psi));
 
     h1=pphi*ppsi*cos(psi-phi)*cos(psi-phi);
-    h1=h1-(2*ppsi*ppsi+pphi*pphi)*cos(psi-phi)+2*pphi*ppsi;
-    h1*h1*2*sin(phi-psi);
+    h2=(2*ppsi*ppsi+pphi*pphi)*cos(psi-phi);
+    h3=2*pphi*ppsi;
+    h1=h1-h2+h3;
+    h1=h1*2*sin(psi-phi);
     h2=pow((2-cos(psi-phi)*cos(psi-phi)),2);
     f=h1/h2-2*g*sin(phi);
     
@@ -39,7 +41,7 @@ double f_ppsi(double phi, double psi, double pphi, double ppsi, double g){
     // f=-g*sin(psi)+h1-h2*sin(2*(phi-psi));
     h1=pphi*ppsi*cos(psi-phi)*cos(psi-phi);
     h1=h1-(2*ppsi*ppsi+pphi*pphi)*cos(psi-phi)+2*pphi*ppsi;
-    h1*h1*2*sin(psi-phi);
+    h1=h1*2*sin(phi-psi);
     h2=pow((2-cos(psi-phi)*cos(psi-phi)),2);
     f=h1/h2-g*sin(psi);
     

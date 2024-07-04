@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 
 
 
-file_name =  'C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Voluntario1/Datos_pendulo2.txt'
+file_name =  'C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Voluntario1/Datos_pendulo.txt'
 
 data = pd.read_csv(file_name, delimiter=',', header=1, names=['m', 't'])
 
@@ -19,9 +19,9 @@ plt.plot( data.t, data.m, 'b', label='E=1', linewidth=1)
 
 
 
-plt.title(' Energía E=3 \n Condiciones iniciales: φ=0.1, ψ=0.2', fontsize=30)
+plt.title(' Energía E=1 \n Condiciones iniciales: φ=0.2, ψ=0.2', fontsize=30)
 plt.ylabel(r'Ángulo φ ',fontsize=30)
-plt.xlabel(r'Ángulo ψ',fontsize=30)
+plt.xlabel(r'Velocidad angular de φ',fontsize=30)
 for axis in ['top','bottom','left','right']:
     ax.spines[axis].set_linewidth(2)
     
