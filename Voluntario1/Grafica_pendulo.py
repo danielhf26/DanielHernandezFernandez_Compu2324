@@ -21,9 +21,9 @@ fig=plt.figure(figsize=[18,12])
 ax=fig.gca()
 plt.plot( data.t, data.m, 'orange', label=' φ=0.2, ψ=0.2', linewidth=1)
 plt.plot( data2.t, data2.m, 'b', label=' φ=0.201, ψ=0.201',linewidth=1)
-# plt.plot( data3.t, data3.m, 'r', label='E=5',linewidth=1)
-# plt.plot( data4.t, data4.m, 'violet', label='E=10',linewidth=1)
-# plt.plot( data5.t, data5.m, 'g', label='E=15',linewidth=1)
+plt.plot( data3.t, data3.m, 'r', label='E=5',linewidth=1)
+plt.plot( data4.t, data4.m, 'violet', label='E=10',linewidth=1)
+plt.plot( data5.t, data5.m, 'g', label='E=15',linewidth=1)
 
 
 

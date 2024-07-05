@@ -53,12 +53,12 @@ int main(){
 
     //las y son nuestras variables el 0 significa radio, el 1 momento de radio
     //el 2 angulo phi e 3 momento conjugadodel angulo phi
-    for(j=0;j<2;j++){
+    for(j=2;j<5;j++){
     t=0;
     
-    y[0]=0.2+j*0.001;
-    y[1]=0.2+j*0.001;
-    y[2]=sqrt(E[4]-2*g*(1-cos(y[0]))-g*(1-cos(y[1]))); //Calcula la velocidad phi inicial
+    y[0]=0.3;
+    y[1]=0.31;
+    y[2]=sqrt(E[j]-2*g*(1-cos(y[0]))-g*(1-cos(y[1]))); //Calcula la velocidad phi inicial
 
     y[3]=y[2]*cos(y[1]-y[0]);  //Con esta velocidad podemos calcular el momento psi inicial 
     y[2]=2*y[2];//Multiplicando por dos conseguimos el momento phi inicial
@@ -101,25 +101,27 @@ int main(){
 
         t=t+h;
        
-       //Ener=energia(y[0], y[1], y[2], y[3], g);
+       Ener=energia(y[0], y[1], y[2], y[3], g);
 
        vphi=momento_velocidad_phi(y[0], y[1], y[2], y[3]);
        
     
        if(j==0){
-        fprintf(fichero,"%lf, %lf \n", y[0], y[1]);
+        //fprintf(fichero,"%lf, %lf, %lf \n", y[0], vphi, t);
+        fprintf(fichero,"%lf, %lf \n", y[0],  y[1]);
        }
        else if(j==1){
+        //fprintf(fichero2,"%lf, %lf, %lf \n", y[0],  vphi, t);
         fprintf(fichero2,"%lf, %lf \n", y[0],  y[1]);
        }
        else if(j==2){
-        fprintf(fichero3,"%lf, %lf \n", y[0],  vphi);
+        fprintf(fichero3,"%lf, %lf \n", y[0],  y[1]);
        }
        else if(j==3){
-        fprintf(fichero4,"%lf, %lf \n", y[0],  vphi);
+        fprintf(fichero4,"%lf, %lf \n", y[0],  y[1]);
        }
        else if(j==4){
-        fprintf(fichero5,"%lf, %lf \n", y[0],  vphi);
+        fprintf(fichero5,"%lf, %lf \n", y[0],  y[1]);
        }
        
 
