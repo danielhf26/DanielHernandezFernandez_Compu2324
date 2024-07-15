@@ -26,7 +26,9 @@ Se han realizado dos ejercicios voluntarios para la asignatura de fisica computa
 El segundo voluntario escogido es la simulación del modelo de ising-kawasaki a través de algoitmos montecarlo.
 A continuación se detallan los contenidos de cada carpeta.
 
-VOLUNTARIO1: PENDULO DOBLE: -Pendulo.c: Código principal de la simulación. Utiliza el algoritmo de Runge kutta para obtener la dinámica del péndulo doble. Se requiere de "pendulo.h" para ejecutarlo.
+VOLUNTARIO1: PENDULO DOBLE: 
+
+  -Pendulo.c: Código principal de la simulación. Utiliza el algoritmo de Runge kutta para obtener la dinámica del péndulo doble. Se requiere de "pendulo.h" para ejecutarlo.
 
   -pendulo.h: posee las funciones utilizadas en el código pendulo.c.
   
@@ -39,7 +41,9 @@ VOLUNTARIO1: PENDULO DOBLE: -Pendulo.c: Código principal de la simulación. Uti
   -Grafica_pendulo_energias.py: programa utilizado para obtener mapas de Poincaré para varias energías a la vez.
 
 
-VOLUNTARIO2: MODELO DE KAWASAKI: -Kawasaki.c: Programa que simula el modelo de Kawasaki con condiciones de contorno periódicas en todos los ejes. Requiere de "Funciones_kawasaki.h" para ejecutarse.
+VOLUNTARIO2: MODELO DE KAWASAKI:
+
+-Kawasaki.c: Programa que simula el modelo de Kawasaki con condiciones de contorno periódicas en todos los ejes. Requiere de "Funciones_kawasaki.h" para ejecutarse.
 
   -Kawasaki_contorno.c: Porgrama que simula el modelo de Kawasaki con condiciones de contorno periodicas en un eje y fijas en el otro. Este es el programa utilizado para la obtención de resultados. Requiere de "Funciones_kawasaki.h".
   
