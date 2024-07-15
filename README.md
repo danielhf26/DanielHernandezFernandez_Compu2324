@@ -6,10 +6,13 @@ Los archivos del código principal están en formato .c, mientras que las funcio
 Algunas anotaciones de cada ejercicio:
 
 OBLIGATORIO 1: -Ejemplo_conservacion_energia.png: Plot de la energía cinética, potencial y total a lo largo del tiempo.
+
   -Intel Celeron N4000 vs joel.png: Comparación entre el tiempo de ejecución del programa entre mi portatil y joel.
+  
   -Grafica_eneria.py: Programa utilizado para realizar el plot de la energía.
 
 OBLIGATORIO 2: - Comparación_optimizion.png: Comparación de tiempo de ejecución del código sin optimizar y con optimización -O3 y -O2.
+
   -.mp4: Videos de los resultados obtenidos para distintas temperaturas.
 
 OBLIGATORIO 3: -Grafica_norma.png: Grafica de la norma de la función de onda en función del tiempo.
@@ -37,9 +40,15 @@ VOLUNTARIO1: PENDULO DOBLE: -Pendulo.c: Código principal de la simulación. Uti
 
 
 VOLUNTARIO2: MODELO DE KAWASAKI: -Kawasaki.c: Programa que simula el modelo de Kawasaki con condiciones de contorno periódicas en todos los ejes. Requiere de "Funciones_kawasaki.h" para ejecutarse.
+
   -Kawasaki_contorno.c: Porgrama que simula el modelo de Kawasaki con condiciones de contorno periodicas en un eje y fijas en el otro. Este es el programa utilizado para la obtención de resultados. Requiere de "Funciones_kawasaki.h".
+  
   -Funciones_kawasaki.h: aquí se encuentran todas las funciones utilizadas en las simulaciones.
+  
   -animacion_Kawasaki.py: programa en python que anima el modelo de Kawasaki a partir de los datos obtenidos de las simulaciones.
+  
   -Grafica_mag.py: porgrama en python para graficar las magnetizaciones.
+  
   -Grafica_energia.py: programa en python para graficar la energía.
+  
   -Grafica_densidad.py: programa en python para graficar las densidades.
