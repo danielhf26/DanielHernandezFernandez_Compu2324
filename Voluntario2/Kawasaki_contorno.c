@@ -9,118 +9,72 @@
 
 
 int main(){
+
+    //DEFINIMOS LAS VARIABLES QUE SE VAN A UTILIZAR
     clock_t comienzo, final;
     comienzo=clock();
     srand(time(NULL));
     int semilla=time(NULL);
-    int N=32;
+    int N=16;  //TAMAÑO DE LA MALLA
     int i, j, k, ij, check, t;
     int m, n, r;
-    double E, E2, expo, T, p, xi;
+    double E, E2, Eprom, Epromsqrt, expo, T, p, xi, cn;
     double mag, mag_superior, mag_inferior;
     double densidad=0;
     double delta_E;
     int cont=0;
     double h, Tmax;
+    double x;
     
-    double var_inf, var_sup, var_mag;
+    double var_inf, var_sup, var_mag, var_ener, var_densidad;
     int aux;
 
     FILE* fichero_out;
     FILE *fichero_magnetizacion;
     FILE *fichero_densidades;
+    FILE* fichero_energias;
     fichero_out=fopen("Datos_kawasaki.txt", "w");
     fichero_magnetizacion=fopen("Datos_magnetizacion.txt", "w");
-    fichero_densidades=fopen("Datos_densidades.txt", "w" );
+    fichero_densidades=fopen("Datos_densidades5.txt", "w" );
+    fichero_energias=fopen("Datos_energias.txt", "w" );
 
     mag=0;
     mag_superior=0;
     mag_inferior=0;
-    T=1;
     
-    //Ponemos unn valor aleatorio en todo la malla
     int s[N][N+4];
-    int a=1;
-    for(i=1;i<N/2;i++){
-        for(j=2;j<N+2;j++){
-            k=rand()%4;
-            if( k==0 ){
-                s[i][j]=-1;
-            }
-            else{
-                s[i][j]=1;
-            }
-            
-            }
-            
-    }
-
-     for(i=N/2;i<N-1;i++){
-        for(j=2;j<N+2;j++){
-             k=rand()%4;
-            if( k==0){
-                s[i][j]=1;
-            }
-            else{
-                s[i][j]=-1;
-            }
-            
-            }
-            
-    }
-    for(i=0;i<N;i++){
-        for(j=2;j<N+2;j++){
-            if(i%2==0){
-                s[i][j]=1;
-            }
-            else{
-                s[i][j]=-1;
-            }
-        }
-    }
-    
-
-
-    //PROTOTIPO DE MAGNETIZACION NULA
-    // for(i=0;i<N;i++){
-    //     for(j=0;j<N+3;j++){
-    //         s[i][j]=0;
-    //     }
-    // }
-    // int w;
-    // w=N*N;
-    // int elementos[w];
-    // for(i=0;i<w;i=i+2){
-    //     elementos[i]=rand()%2;
-    //     if(elementos[i]==0){
-    //         elementos[i]=-1;
-    //     }
-        
-    // }
-
-    //Escogemos unos valores randoms en la malla
+    int a;
     
   
-    
+    //Imponemos las condiciones de contorno de espines positivos arriba y negativos abajo
     for(i=0;i<N+4;i++){
         s[0][i]=1;
         s[N-1][i]=-1;
     }
-   int* sp=s[0];
-    Tmax=50000;
 
-    a=10000;
+
+   int* sp=s[0];
+
+
+    Tmax=10000; //Numero de pasos montecarlo.
+
+    a=5000; // Esta variable sirve para empezar a calcular las propiedades (como energia o magnetización) una vez psado cierto numero de pasos montecarlo
 
     int tmag=Tmax-a;
-    double v_mag[tmag],v_mag_sup[tmag], v_mag_inf[tmag];
+    double v_mag[tmag],v_mag_sup[tmag], v_mag_inf[tmag], Ener[tmag], Enersqr[tmag], dens[N];
     double* magp=v_mag;
     double* magp_sup=v_mag_sup;
     double* magp_inf=v_mag_inf;
+    double* Enerp=Ener;
+    double* densp=dens;
+    
     h=1;
     t=0;
 
-    T=1;
-   while(T<6){
+    T=1; //TEMPERTURA DE LA MALLA
+   while(T<1.1){//Este bucle nos permite realizar simulaciones para varias temperaturas seguidas
+
+    //PATRON INICIAL UTILIZADO EN EL APARTADO CON MAGNETIZACION NULA
      for(i=0;i<N;i++){
         for(j=2;j<N+2;j++){
             if(i%2==0){
@@ -132,13 +86,49 @@ int main(){
             }
         }
     }
+
+    //PATRON UTILIZADO EN EL APARTADO DE MAGNETIZACION NO NULA
+    // for(i=0;i<N;i++){
+        
+    //     for(j=2;j<N+2;j++){
+    //         if(i==0){
+    //             s[i][j]==1;
+    //         }
+    //         else if(i==N-1){
+    //             s[i][j]==-1;
+    //         }
+    //         else if((i+j)%3==0){
+    //             s[i][j]=-1;
+    //         }
+    //         else{
+    //             s[i][j]=+1;
+    //         }
+    //     }
+    // }
+
+    x=Magnetización(sp, N);
+    x=(1+x)/2; //Calculamos el valor de x tal y como pone en el guión para saber como dividir a magnetizacion por bloques
+
+        //Ponemos los datos iniciales en un fichero de espines
+        for(i=0;i<N;i++){
+                for(j=2;j<N+1;j++){
+                    fprintf(fichero_out, "%d, ", s[i][j]);
+                }
+                fprintf(fichero_out, "%d", s[i][N+1]);
+                fprintf(fichero_out, "\n");
+            }
+            fprintf(fichero_out, "\n");
+
+
         t=0;
-        while(t<Tmax){
-            //mag=Magnetización(sp,N);
+        while(t<Tmax){//COMIENZA EL PASO MONTECARLO
+           
             
-            //Nuestra matriz es dos filas y dos columnas más grande 
-        //De esta forma podemos imponer las condiciones de contorno periodicas de la siguiente forma
-            for(ij=1;ij<N*N;ij++){
+            for(ij=1;ij<N*N;ij++){//Este bucle se correspone con un paso montecarlo
+
+
+                //Nuestra matriz es dos filas y dos columnas más grande 
+                //De esta forma podemos imponer las condiciones de contorno periodicas de la siguiente forma
                 for(k=0;k<N; k++){
             
                 s[k][1]=s[k][N+1];
@@ -150,6 +140,7 @@ int main(){
                 
                 
                 //Elegimos el punto incial de la matriz
+                //n indica la fila y m la columna
                 n=rand() % (N-2)+1;
                 m=rand() % N+2;
             
@@ -176,14 +167,15 @@ int main(){
                 
                 }
                 
+
+                //Esta funcion nos permite comprobar si los dos espines elegidos tienen el mismo signo
                 check=comprobacion_spin(sp+n*(N+4)+m, r, N);
 
-                //Ejecutamos el codigo si y solo si los espines que se quieren intercmbiar tienen diferente estado
+                //Ejecutamos el codigo si y solo si los espines que se quieren intercambiar tienen diferente espin
                 //De lo contrario no afectaría en nada su intercambio, por lo que lo dejamos igual
+                //Eto ayuda notablemente al rendimiento del código
                 if(check==0){
 
-                //Las condiones de contorno nos obligan a asignar valores a ciertos cuadrantes de nuestra matriz
-                //según la dirección en la que rote
                     
                             
                     
@@ -229,31 +221,35 @@ int main(){
                         }
                     }
                         
-                    
+                    }
+                
+                }//FINAL DE UN PASO MONTECARLO
+                
                 
             
-                
-                
-            }
-            }
-            //Cálculo de la magnetización de la malla, superior e inferior
+        
+            //Cálculo de la magnetización de la malla, superior e inferior y la energía
+            //Los datos los metemos en un vector
             if(t>a){
+            Ener[t-a]=energia_por_particula(sp, N);
             v_mag[t-a]=Magnetización(sp, N);
-            v_mag_sup[t-a]=Magnetización_superior(sp, N);
-            v_mag_inf[t-a]=Magnetización_inferior(sp, N);
+            v_mag_sup[t-a]=Magnetización_superior(sp, N, x);
+            v_mag_inf[t-a]=Magnetización_inferior(sp, N, x);
+
+
+            //Cálculo de la densidad en el eje y
+            for(i=0;i<N;i++){
+                dens[i]=dens[i]+densidad_positivo(sp+i*(N+4), N);
+
+            }
             }
             
 
 
-            //Calculo de la densidad promedio
-            //densidad=densidad+densidad_positivo(sp, N);
-                
             
-
-
-
+                
             //Escribimos los datos obtenidos en un fichero
-            if(cont%1==0){
+            if(cont%10==0){
             for(i=0;i<N;i++){
                 for(j=2;j<N+1;j++){
                     fprintf(fichero_out, "%d, ", s[i][j]);
@@ -267,8 +263,24 @@ int main(){
             cont=cont+1;
             //Aumentamos en 1 el paso montecarlo
             t+=1;
-        }
+        }//FINAL DE TODOS LOS PASOS MONTECARLO
 
+        //Calculamos la energía promedio por particula
+        Eprom=0;
+        for(i=0;i<Tmax-a;i++){
+            Eprom=Eprom+Ener[i];
+        }
+        Eprom=Eprom/(Tmax-a);    
+ 
+
+        //A continuacion calculamos las varianzas de la energía y lo añadimos a un fichero
+         var_ener=var(Enerp, Eprom, Tmax-a);
+         var_ener=3*sqrt(var_ener/(Tmax-a));
+         fprintf(fichero_energias, "%lf, %lf, %lf \n", T, Eprom, var_ener);
+
+
+
+        //CALCULAMOS LA MAGNETIZACION PROMEDIO
         mag=0;
         mag_inferior=0;
         mag_inferior=0;
@@ -278,29 +290,47 @@ int main(){
             mag_superior+=v_mag_sup[i];
         }
 
+
+        //CALCULO DE LA MAGNETIZACION Y VARIANZAS
         mag=mag/(Tmax-a);
         mag_inferior=mag_inferior/(Tmax-a);
         mag_superior=mag_superior/(Tmax-a);
         var_inf=var(magp_inf, mag_inferior, Tmax-a);
-        var_inf=sqrt(var_inf/(Tmax-a));
+        var_inf=3*sqrt(var_inf/(Tmax-a));
         var_sup=var(magp_sup, mag_superior, Tmax-a);
-        var_inf=sqrt(var_sup/(Tmax-a));
+        var_sup=3*sqrt(var_sup/(Tmax-a));
         fprintf(fichero_magnetizacion, " %lf \t %lf \t %lf \t %lf \t %lf \t %lf \n ", T, mag, mag_inferior, var_inf,mag_superior, var_sup);
 
 
-        densidad=densidad/Tmax;
-        fprintf(fichero_densidades,"%lf, %lf \n", densidad, T);
-        T=T+0.2;
-        printf("Hola");
-    
-}
 
-fclose(fichero_out);
-fclose(fichero_magnetizacion);
-final=clock();
+        //CALCULO DE LA DENSIDAD PROMEDIO
+
+        for(i=0;i<N;i++){
+        dens[i]=dens[i]/tmag;  
+        fprintf(fichero_densidades,"%d, %lf \n", i+1, dens[i]);
+        }
+
+        
+    
+        T=T+0.2;//Aumentamos el valor de la temperatura cuanto deseemos
+        
+    
+    }//FIN DEL BUCLE DE TEMPERATURAS
+
+
+    //CERRAMOS FICHEROS
+    fclose(fichero_out);
+    fclose(fichero_magnetizacion);
+    fclose(fichero_energias);
+    fclose(fichero_densidades);
+
+
+    //Calculamos el tiempo de ejecución y lo mostramos por pantalla
+    final=clock();
     
     double tiempo=(double)(final-comienzo)/CLOCKS_PER_SEC;
 
-    printf("Tiempo transcurrido desde el comienzo hasta el fin del algoritmo utilizado: %lf ", tiempo);
+    printf("Tiempo transcurrido desde el comienzo hasta el fin del algoritmo utilizado: %lf, %d \n", tiempo, N);
+    
     
 }

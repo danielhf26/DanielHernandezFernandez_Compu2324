@@ -1,3 +1,5 @@
+//CODIGO QUE REALIZA DOS SIMULACIONES A LA VE DEL PENDULO DOBLE Y CALCULA LOS COEFICIENTES DE LYAPUNOV.
+//LA SIMULACION EN IGUAL QUE EN LA SIMULACIÓN DE UN SOLO PENDULO
 #include <stdio.h>
 #include <math.h>
 #include "pendulo.h"
@@ -18,7 +20,7 @@ int main(){
     comienzo=clock();
     double y[4], k1[4], k2[4], k3[4],k4[4], a[4], y2[4], k21[4], k22[4], k23[4],k24[4];
     double g=9.81;
-    double psi, En, mo, pi, vphi, vpsi, vphi2;
+    double psi, En, mo, pi, vphi, vpsi, vphi2, vpsi2;
   
 
     pi=3.1415926535;
@@ -46,12 +48,11 @@ int main(){
 
    
 
-    //las y son nuestras variables el 0 significa radio, el 1 momento de radio
-    //el 2 angulo phi e 3 momento conjugadodel angulo phi
-    for(j=0;j<2;j++){
+   
+    for(j=0;j<5;j++){
     t=0;
     
-    y[0]=0.1;
+    y[0]=-0.1;
     y[1]=0.2;
     y[2]=sqrt(E-2*g*(1-cos(y[0]))-g*(1-cos(y[1]))); //Calcula la velocidad phi inicial
     vphi=y[2];
@@ -59,8 +60,10 @@ int main(){
     y[2]=2*y[2];//Multiplicando por dos conseguimos el momento phi inicial
 
     
-    y2[0]=0.1+0.001;
-    y2[1]=0.2+0.001;
+
+    //Defiinimos las otras condiciones iniciales ligermente distintas
+    y2[0]=0.2+0.0005;
+    y2[1]=0.2;
     y2[2]=sqrt(E-2*g*(1-cos(y2[0]))-g*(1-cos(y2[1]))); //Calcula la velocidad phi inicial
     vphi2=y2[2];
     y2[3]=y2[2]*cos(y2[1]-y2[0]);  //Con esta velocidad podemos calcular el momento psi inicial 
@@ -138,6 +141,8 @@ int main(){
 
         t=t+h;
        
+
+       //CALCULAMOS LOS COEFICIENTES DE LYAPUNOV
        vphi=momento_velocidad_phi(y[0], y[1], y[2], y[3]);
        vphi2=momento_velocidad_phi(y2[0], y2[1], y2[2], y2[3]);
 
@@ -146,21 +151,7 @@ int main(){
        lya=lya+log(delta/delta0);
        
     
-      
-
-       // vpsi=momento_velocidad_psi(y[0], y[1], y[2], y[3]);
-       
-     
-       //fprintf(fichero, "%lf \n", Ener);
-    //    if(cont%100==0){
-    //      fprintf(fichero, "%lf, %lf \n", +sin(y[0]), -cos(y[0]));
-    //      fprintf(fichero, "%lf, %lf \n", +sin(y[0])+sin(y[1]), -cos(y[0])-cos(y[1]));
-    //      fprintf(fichero, "\n");
-    //    }
-    //    cont=cont+1;
-        
-      
-       
+    
         
 
         }
@@ -168,10 +159,12 @@ int main(){
 
     }
 
+
+    //Normalizamos y metemos los coeficientes de Lypunov en un fichero
     lya=lya/Tmax;
     printf("%lf \n", E);
     fprintf(fichero,"%lf, %lf \n", lya, E);
-    E=E+0.2;
+    E=E+1; //Aumentamos la energía
    
 
     

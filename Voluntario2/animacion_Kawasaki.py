@@ -49,7 +49,7 @@ import io
 # ========================================
 file_in = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Voluntario2/Datos_kawasaki.txt" # Nombre del fichero de datos
 file_out = "C:/fisica_computacional/Repositorios_git/DanielHernandezFernandez_Compu2324/Voluntario2/video_kawasaki_T0.001_random.txt" # Nombre del fichero de salida (sin extensión)
-interval = 1 # Tiempo entre fotogramas en milisegundos
+interval = 5 # Tiempo entre fotogramas en milisegundos
 save_to_file = False # False: muestra la animación por pantalla,
                      # True: la guarda en un fichero
 dpi = 100 # Calidad del vídeo de salida (dots per inch)
