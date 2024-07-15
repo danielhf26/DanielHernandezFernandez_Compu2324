@@ -24,10 +24,15 @@ El segundo voluntario escogido es la simulación del modelo de ising-kawasaki a 
 A continuación se detallan los contenidos de cada carpeta.
 
 VOLUNTARIO1: PENDULO DOBLE: -Pendulo.c: Código principal de la simulación. Utiliza el algoritmo de Runge kutta para obtener la dinámica del péndulo doble. Se requiere de "pendulo.h" para ejecutarlo.
+
   -pendulo.h: posee las funciones utilizadas en el código pendulo.c.
+  
   -pendulo_lyapunov.c: Variación del codigo principal en la que se relizan dos simulaciones a la vez, lo que nos permite calcular los coeficientes de lyapunov. Se requiere también "pendulo.h".
+  
   -animacion_pendulo.py: programa de python que nos permíte animar el péndulo doble con los datos obtenidos en "pendulo.c".
+  
   -Grafica_pendulo.py: prgrama utilizado para obtener los mapas de Poincaré para una única energía.
+  
   -Grafica_pendulo_energias.py: programa utilizado para obtener mapas de Poincaré para varias energías a la vez.
 
 
